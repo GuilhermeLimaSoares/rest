@@ -14,7 +14,8 @@
   "author": "Guilherme de Lima Soares",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "body-parser": "^1.19.0",
