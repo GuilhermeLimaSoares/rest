@@ -7,6 +7,7 @@ const rotaProdutos = require('./routes/produtos');
 const rotaPedidos = require('./routes/pedidos');
 
  app.use(morgan('dev')); // devolve status da api em tempo real/monitora a execucao
+ app.use('/uploads', express.static('uploads'));
  app.use(bodyParser.urlencoded({ extended: false })); // apenas dados simples
  app.use(bodyParser.json());
 
