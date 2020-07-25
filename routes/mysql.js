@@ -1,13 +1,13 @@
 const mysql = require('mysql');
-const config = require('local');
+// const config = require('local');
 
-// var pool = mysql.createPool({
-//     "user": "root",
-//     "password": "",
-//     "database": "ecommerce",
-//     "host": "localhost",
-//     "port": 3307
-// })
+var pool = mysql.createPool({
+    "user": "root",
+    "password": "",
+    "database": "ecommerce",
+    "host": "localhost",
+    "port": 3307
+})
 
 
 // var pool = mysql.createPool({
@@ -19,13 +19,13 @@ const config = require('local');
   
 // });
 
-var pool = mysql.createPool({
-    "user": config.user,
-    "password": config.password,
-    "database": config.database,
-    "host": config.host,
-    "port": config.port
+// var pool = mysql.createPool({
+//     "user": config.user,
+//     "password": config.password,
+//     "database": config.database,
+//     "host": config.host,
+//     "port": config.port
   
-});
+// });
 
 exports.pool = pool;
