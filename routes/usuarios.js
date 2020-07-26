@@ -3,6 +3,7 @@ const router = express.Router();
 const mysql = require('./mysql').pool;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv').config();
 
 router.post('/cadastro',(req, res, next) => {
        mysql.getConnection((err, conn) => {

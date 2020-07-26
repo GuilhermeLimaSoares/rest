@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('./mysql').pool;
 const multer = require('multer');
+const login = require('./middleware/login');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -62,8 +63,7 @@ router.get('/', (req, res, next) => {
 });
 
 //INSERI UM PRODUTO
-router.post('/', upload.single('produto_imagem'), (req, res, next) => {
-    console.log(req.file);
+router.post('/', login.obrigatorio, upload.single('produto_imagem'), (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if(error) { return res.status(500).send({ error: error })}
         conn.query(
@@ -75,7 +75,6 @@ router.post('/', upload.single('produto_imagem'), (req, res, next) => {
             ],
             (error, result, field) =>  {
                 conn.release();
-
                 if (error){ return res.status(500).send({error: error })}
                 const response = {
                     mensagem: 'Produto inserido com sucesso',
@@ -86,7 +85,7 @@ router.post('/', upload.single('produto_imagem'), (req, res, next) => {
                     request: {
                         tipo: 'POST',
                         descricao: 'Insere um produto',
-                        url: 'http://localhost:3007/produtos'
+                        url: 'http://localhost:3008/produtos'
                     }
                 }
                   return res.status(201).send(response);
@@ -133,7 +132,7 @@ router.get('/:id_produto', (req, res, next) => {
 });
 
 //ALTERA UM PRODUTO
-router.patch('/', (req, res, next) => {
+router.patch('/', login.obrigatorio,(req, res, next) => {
     mysql.getConnection((error, conn ) => {
         if (error) { return res.status(500).send({ error: error })}
         conn.query(
@@ -170,7 +169,7 @@ router.patch('/', (req, res, next) => {
 });
 
 //DELETAR UM PRODUTO
-router.delete('/', (req, res, next) => {
+router.delete('/', login.obrigatorio, (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if(error) { return res.status(500).send({ error: error })}
         conn.query(
